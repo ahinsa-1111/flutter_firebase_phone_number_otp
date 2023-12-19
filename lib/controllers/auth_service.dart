@@ -7,7 +7,7 @@ class AuthService {
 
   // to sent and otp to user
   static Future sentOtp({
-    required int phone,
+    required String phone,
     required Function errorStep,
     required Function nextStep,
   }) async {
