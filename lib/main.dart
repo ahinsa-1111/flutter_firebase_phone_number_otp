@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_number_otp/controllers/auth_service.dart';
 import 'package:flutter_firebase_phone_number_otp/firebase_options.dart';
+import 'package:flutter_firebase_phone_number_otp/pages/home_page.dart';
 import 'package:flutter_firebase_phone_number_otp/pages/login_page.dart';
 
 void main() async {
@@ -52,6 +54,17 @@ class CheckUserLoggedInOrNot extends StatefulWidget {
 }
 
 class _CheckUserLoggedInOrNotState extends State<CheckUserLoggedInOrNot> {
+  @override
+  void initState() {
+    AuthService.isUserLoggedIn().then((value) {
+      if (value) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
