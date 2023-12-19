@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_number_otp/controllers/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,6 +11,18 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _otpController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+  final _formkey1 = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    _controller = AnimationController(vsync: this);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -46,13 +59,21 @@ class _LoginPageState extends State<LoginPage>
               ),
               Text("    Enter Your Phone Number To Continue"),
               SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(
-                  prefixText: "+94",
-                  labelText: "Enter Your Phone Number",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(32),
+              Form(
+                key: _formKey,
+                child: TextFormField(
+                  controller: _phoneController,
+                  decoration: InputDecoration(
+                    prefixText: "+94",
+                    labelText: "Enter Your Phone Number",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32),
+                    ),
                   ),
+                  validator: (value) {
+                    if (value!.length != 10) return "Invalid Phone Number";
+                    return null;
+                  },
                 ),
               ),
               SizedBox(height: 20),
@@ -60,7 +81,53 @@ class _LoginPageState extends State<LoginPage>
                 height: 50,
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      AuthService.sentOtp(
+                          phone: _phoneController.text,
+                          errorStep: () => ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                  "Erorr in sending OTP",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                backgroundColor: Colors.red,
+                              )),
+                          nextStep: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                    title: Text("OTP Verification"),
+                                    content: Column(
+                                      children: [
+                                        Text("Enter 6 digit OTP"),
+                                        SizedBox(
+                                          height: 12,
+                                        ),
+                                        Form(
+                                          key: _formkey1,
+                                          child: TextFormField(
+                                            controller: _otpController,
+                                            decoration: InputDecoration(
+                                              labelText:
+                                                  "Enter Your Phone Number",
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(32),
+                                              ),
+                                            ),
+                                            validator: (value) {
+                                              if (value!.length != 6)
+                                                return "Invalid OTP";
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    )));
+                          });
+                    }
+                  },
                   child: Text("Send OTP"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.yellow,
