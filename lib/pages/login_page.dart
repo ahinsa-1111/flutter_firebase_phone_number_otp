@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_phone_number_otp/controllers/auth_service.dart';
+import 'package:flutter_firebase_phone_number_otp/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -140,6 +141,9 @@ class _LoginPageState extends State<LoginPage>
                                               Navigator.pop(context);
                                               Navigator.push(
                                                 context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HomePage()),
                                               );
                                             }
                                           });
