@@ -134,7 +134,15 @@ class _LoginPageState extends State<LoginPage>
                                         if (_formkey1.currentState!
                                             .validate()) {
                                           AuthService.loginWithOtp(
-                                              otp: _otpController.text);
+                                                  otp: _otpController.text)
+                                              .then((value) {
+                                            if (value == "Success") {
+                                              Navigator.pop(context);
+                                              Navigator.push(
+                                                context,
+                                              );
+                                            }
+                                          });
                                         }
                                       },
                                       child: Text("Submit"))
