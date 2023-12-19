@@ -139,12 +139,13 @@ class _LoginPageState extends State<LoginPage>
                                               .then((value) {
                                             if (value == "Success") {
                                               Navigator.pop(context);
-                                              Navigator.push(
+                                              Navigator.pushReplacement(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           HomePage()));
                                             } else {
+                                              Navigator.pop(context);
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
                                                 content: Text(
