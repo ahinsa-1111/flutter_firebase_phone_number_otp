@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_number_otp/controllers/auth_service.dart';
+import 'package:flutter_firebase_phone_number_otp/pages/login_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,7 +20,13 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              OutlinedButton(onPressed: () {}, child: Text("Logout"))
+              OutlinedButton(
+                  onPressed: () {
+                    AuthService.logout();
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  child: Text("Logout"))
             ],
           ),
         ));
