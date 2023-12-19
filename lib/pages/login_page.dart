@@ -63,6 +63,7 @@ class _LoginPageState extends State<LoginPage>
                 key: _formKey,
                 child: TextFormField(
                   controller: _phoneController,
+                  keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     prefixText: "+94",
                     labelText: "Enter Your Phone Number",
@@ -95,36 +96,44 @@ class _LoginPageState extends State<LoginPage>
                               )),
                           nextStep: () {
                             showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                    title: Text("OTP Verification"),
-                                    content: Column(
-                                      children: [
-                                        Text("Enter 6 digit OTP"),
-                                        SizedBox(
-                                          height: 12,
-                                        ),
-                                        Form(
-                                          key: _formkey1,
-                                          child: TextFormField(
-                                            controller: _otpController,
-                                            decoration: InputDecoration(
-                                              labelText:
-                                                  "Enter Your Phone Number",
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(32),
-                                              ),
-                                            ),
-                                            validator: (value) {
-                                              if (value!.length != 6)
-                                                return "Invalid OTP";
-                                              return null;
-                                            },
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text("OTP Verification"),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Enter 6 digit OTP"),
+                                    SizedBox(
+                                      height: 12,
+                                    ),
+                                    Form(
+                                      key: _formkey1,
+                                      child: TextFormField(
+                                        keyboardType: TextInputType.number,
+                                        controller: _otpController,
+                                        decoration: InputDecoration(
+                                          labelText: "",
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(32),
                                           ),
                                         ),
-                                      ],
-                                    )));
+                                        validator: (value) {
+                                          if (value!.length != 6)
+                                            return "Invalid OTP";
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {}, child: Text("Submit"))
+                                ],
+                              ),
+                            );
                           });
                     }
                   },
