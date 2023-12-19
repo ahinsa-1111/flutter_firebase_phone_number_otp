@@ -130,7 +130,14 @@ class _LoginPageState extends State<LoginPage>
                                 ),
                                 actions: [
                                   TextButton(
-                                      onPressed: () {}, child: Text("Submit"))
+                                      onPressed: () {
+                                        if (_formkey1.currentState!
+                                            .validate()) {
+                                          AuthService.loginWithOtp(
+                                              otp: _otpController.text);
+                                        }
+                                      },
+                                      child: Text("Submit"))
                                 ],
                               ),
                             );
