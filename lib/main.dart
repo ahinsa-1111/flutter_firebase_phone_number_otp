@@ -60,6 +60,9 @@ class _CheckUserLoggedInOrNotState extends State<CheckUserLoggedInOrNot> {
       if (value) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomePage()));
+      } else {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
       }
     });
     super.initState();
