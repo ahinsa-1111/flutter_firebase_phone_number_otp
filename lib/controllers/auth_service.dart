@@ -33,4 +33,23 @@ class AuthService {
       errorStep();
     });
   }
+
+  //verify the otp code and login
+  static Future loginWithOtp({required String otp}) async {
+    final cred =
+        PhoneAuthProvider.credential(verificationId: verifyId, smsCode: otp);
+
+    try {
+      final user = await _firebaseAuth.signInWithCredential(cred);
+      if (user.user != null) {
+        return "Success";
+      } else {
+        return "Error in otp login";
+      }
+    } on FirebaseAuthException catch (e) {
+      return e.message.toString();
+    } catch (e) {
+      return e.toString();
+    }
+  }
 }
