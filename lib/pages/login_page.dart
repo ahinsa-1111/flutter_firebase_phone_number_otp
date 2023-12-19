@@ -140,11 +140,20 @@ class _LoginPageState extends State<LoginPage>
                                             if (value == "Success") {
                                               Navigator.pop(context);
                                               Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        HomePage()),
-                                              );
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HomePage()));
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                backgroundColor: Colors.red,
+                                              ));
                                             }
                                           });
                                         }
