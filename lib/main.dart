@@ -43,3 +43,17 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class CheckUserLoggedInOrNot extends StatefulWidget {
+  const CheckUserLoggedInOrNot({super.key});
+
+  @override
+  State<CheckUserLoggedInOrNot> createState() => _CheckUserLoggedInOrNotState();
+}
+
+class _CheckUserLoggedInOrNotState extends State<CheckUserLoggedInOrNot> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
